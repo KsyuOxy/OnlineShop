@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    (products)
+{% endblock title %}
+
+
+{% block under_menu_content %}
+
+<!-- Start Content Products -->
+    <div class="container border-bottom" style="min-height: 500px; background-color: white; padding-bottom: 30px;">
+        <div class="row">
+
+            <!--Start Block Filters-->
+            <div class="col-md-3 col-lg-3 col-sm-4 col-xs-12 float-right-style">
+                <div class="categories-menu mrg-xs">
+                    <div class="category-menu-list">
+                        <ul>
+                            <div class="header-filters border-bottom-blue"><h>FILTERS</h></div>
+                            <form id="form-filters" action="#">
+                                {% for category in categories %}
+                                <li id="filter-category">
+                                    <h7 ><img alt="" src="{% static 'images/icons/thum2.png' %}">
+                                        {{category.name}}</h7>
+                                    <ul>
+                                        {% for subcategory in subcategories %}
+                                        {% if subcategory.category == category %}
+                                        <li class="li-checkbox">
+                                            <input class="checkbox-subcategory subs_ids" type="checkbox" id="sub{{subcategory.id}}">
+                                            <label class="label-checkbox" for="sub{{subcategory.id}}">{{subcategory.name}}</label>
+                                        </li>
+                                        {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                                {% endfor %}
+
+                                <!-- Button-Filter "OK" -->
+                                <a id="subcategory-filter-btn" style="background-color: #151515; color: white;"
+                                   class="text-center btn-sm btn-block mt--10" href=""> OK </a>
+
+                            </form>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!--End Block Filters-->
+
+            <!--Start Block Products Catalog-->
+            <div class="col-md-9 col-lg-9 col-sm-8 col-xs-12 float-left-style">
+                <div class="row">
+                    {% for category in categories %}
+                    <div class=" col-md-4 col-sm-4 col-xs-6"  style="padding:0px 5px 5px 5px">
+                        <div  class="text-center" style="padding: 15px; position:absolute; top:50%; left: 50%;
+                                    transform:translate(-50%, -50%); width:95%; background-color:#FFFFFF90;">
+                            <a  href="{% url 'category' category.id %}" class="h5 category-name" ><strong>{{category.name.upper}}</strong></a>
+                        </div>
+                        <img class="border-light" style="padding:15px;" src="/media/{{category.image}}" alt="category image">
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <!--End Block Products Catalog-->
+
+        </div>
+
+    </div>
+<!-- End Content Products -->
+{% endblock under_menu_content %}
