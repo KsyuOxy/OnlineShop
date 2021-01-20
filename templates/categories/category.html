@@ -16,8 +16,8 @@
             <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
                 <div class="htc__shop__left__sidebar">
 
-                    <!-- Start Range -->
-                    <div class="htc-grid-range">
+                    <!-- Start Range Price-->
+                    <div class="htc-grid-range" style="margin-bottom: 30px;">
                         <div class="header-filters" style="margin-bottom:20px;">
                             <h >FILTER</h>
                         </div>
@@ -45,34 +45,27 @@
 
 
                     </div>
-                    <!-- End Range -->
-
-                    <!-- Start Product Cat -->
-                    <div class="htc__shop__cat">
-                        <h4 class="section-title-4">PRODUCT CATEGORIES</h4>
-                        <ul class="sidebar__list">
-                            <li><a href="#">Accessories <span>3</span></a></li>
-                            <li><a href="#">Book <span>4</span></a></li>
-                            <li><a href="#">Clothing <span>3</span></a></li>
-                            <li><a href="#">Homelife <span>6</span></a></li>
-                            <li><a href="#">Kids & Baby <span>10</span></a></li>
-                            <li><a href="#">Stationery <span>3</span></a></li>
-                            <li><a href="#">Health & Beauty <span>12</span></a></li>
-                            <li><a href="#">Home Appliances <span>15</span></a></li>
-                        </ul>
-                    </div>
-                    <!-- End Product Cat -->
+                    <!-- End Range Price-->
 
                     <!-- Start Color Cat -->
-                    <div class="htc__shop__cat">
+                    <div class="htc__shop__cat"  style="margin-bottom: 30px;">
                         <h4 class="section-title-4">CHOOSE COLOUR</h4>
-                        <ul class="sidebar__list">
-                            <li class="black"><a href="#"><i class="zmdi zmdi-circle"></i>Black<span>3</span></a></li>
-                            <li class="blue"><a href="#"><i class="zmdi zmdi-circle"></i>Blue <span>4</span></a></li>
-                            <li class="brown"><a href="#"><i class="zmdi zmdi-circle"></i>Brown <span>3</span></a></li>
-                            <li class="red"><a href="#"><i class="zmdi zmdi-circle"></i>Red <span>6</span></a></li>
-                            <li class="orange"><a href="#"><i class="zmdi zmdi-circle"></i>Orange <span>10</span></a></li>
-                        </ul>
+                        <form id="color-ul">
+                            <ul  class="sidebar__list">
+                                {% for color in color_categories %}
+                                <li class="{{color}} color-li">
+                                    <input class="color-a" id="color-{{color}}" type="checkbox" href="#">
+                                    <i class="zmdi zmdi-circle" style="margin-left:5px;"></i>
+                                    {{color}}
+                                    <span></span>
+                                    </input>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            <!-- Button-Filter "OK" -->
+                            <a id="color-filter-btn" style="background-color: #151515; color: white;"
+                                   class="text-center btn-sm btn-block mt--10" href=""> OK </a>
+                        </form>
                     </div>
                     <!-- End Color Cat -->
 
@@ -89,6 +82,22 @@
                         </ul>
                     </div>
                     <!-- End Size Cat -->
+
+                    <!-- Start Product Cat -->
+                    <div class="htc__shop__cat">
+                        <h4 class="section-title-4">PRODUCT CATEGORIES</h4>
+                        <ul class="sidebar__list">
+                            <li><a href="#">Accessories <span>3</span></a></li>
+                            <li><a href="#">Book <span>4</span></a></li>
+                            <li><a href="#">Clothing <span>3</span></a></li>
+                            <li><a href="#">Homelife <span>6</span></a></li>
+                            <li><a href="#">Kids & Baby <span>10</span></a></li>
+                            <li><a href="#">Stationery <span>3</span></a></li>
+                            <li><a href="#">Health & Beauty <span>12</span></a></li>
+                            <li><a href="#">Home Appliances <span>15</span></a></li>
+                        </ul>
+                    </div>
+                    <!-- End Product Cat -->
 
                     <!-- Start Tag Area -->
                     <div class="htc__shop__cat">
@@ -121,7 +130,11 @@
                     <div class=" col-md-4 col-sm-4 col-xs-6 position-relative border-light"  style="padding:0px 5px 5px 5px">
                         <div  class="text-center" style="padding: 15px; position:absolute; top:50%; left: 50%;
                                     transform:translate(-50%, -50%); width:95%; background-color:#FFFFFF90;">
-                            <a href="{% url 'subcategory' subcategory.id %}" class="h5 text-decoration-none" ><strong>{{subcategory.name}}</strong></a>
+                            <a href="{% url 'subcategory' subcategory.id %}" class="h5 text-decoration-none" >
+                                <strong>
+                                    {{subcategory.name}}
+                                </strong>
+                            </a>
                         </div>
                         <img style="padding: 15px;" src="/media/{{subcategory.image}}" alt="subcategory image">
                     </div>
@@ -148,7 +161,7 @@
                         <div class="product">
                             <div class="product__inner">
                                 <div class="pro__thumb">
-                                    <a href="#">
+                                    <a href="{% url 'details_product' product.slug %}">
                                         <img class="border-light" style="padding: 15px;" src="/media/{{product.image}}" alt="product images">
                                     </a>
                                 </div>

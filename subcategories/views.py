@@ -18,7 +18,7 @@ def subcategory(request, subcategory_id):
     subcategory_products = Subcategory.objects.get(id=subcategory_id)
     data['subcategory_products'] = subcategory_products
 
-    return render(request, 'subcategories/subcategory.html', context=data)
+    return render(request, 'mainsite/subcategory.html', context=data)
 
 
 

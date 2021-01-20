@@ -14,4 +14,4 @@ def product_details(request, product_id):
     data['products'] = all_products
     data['categories'] = all_categories
     data['subcategories'] = all_subcategories
-    return render(request, 'products/product-details-sticky-right.html', context=data)
+    return render(request, 'mainsite/product-details-sticky-right.html', context=data)

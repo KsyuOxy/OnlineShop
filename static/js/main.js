@@ -650,10 +650,11 @@ $('.image-popup').magnificPopup({
     $('#form-filters').click(function () {
 
         let new_link_all = ''
-        var selectedElements = $(".subs_ids").toArray();
+        var allElements = $(".subs_ids").toArray();
 
         let new_link = ''
         let checkbox_list = $('.checkbox-subcategory:checked').toArray()
+        console.log(checkbox_list)
 
         if (checkbox_list.length > 0){
             let list_of_ids = checkbox_list.map(el => el.id.replace('sub', 'sub='))
@@ -663,8 +664,8 @@ $('.image-popup').magnificPopup({
 
             $('#subcategory-filter-btn').attr('href', new_link)
         }else{
-            selectedElements = selectedElements.map(el => el.id.replace('sub', 'sub='))
-            new_link_all = '?' + selectedElements.join('&')
+            allElements = allElements.map(el => el.id.replace('sub', 'sub='))
+            new_link_all = '?' + allElements.join('&')
 
             let href_link = $('#subcategory-filter-btn').attr('href')
             $('#subcategory-filter-btn').attr('href', new_link_all)
@@ -692,7 +693,31 @@ $('.image-popup').magnificPopup({
     });
 
     // -----------------------------------------------------------
-    // Filter by #
+    // Filter by Color#
+
+    $('#color-ul').click(function () {
+
+        let new_link_all = ''
+        let new_link = ''
+
+        var allElements = $(".color-a").toArray();
+        let checkbox_list = $('.color-a:checked').toArray()
+        console.log('checked', checkbox_list)
+        console.log(allElements)
+        if (checkbox_list.length > 0){
+            checkbox_list = checkbox_list.map(el => el.id.replace('-', '='))
+
+            new_link = '?' + checkbox_list.join('&')
+            let href_link = $('#color-filter-btn').attr('href')
+            $('#color-filter-btn').attr('href', new_link)
+        }else{
+            allElements = allElements.map(el => el.id.replace('-', '='))
+            new_link_all = '?' + allElements.join('&')
+
+            let href_link = $('#color-filter-btn').attr('href')
+            $('#color-filter-btn').attr('href', new_link_all)
+        }
+    });
 
 
 

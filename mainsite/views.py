@@ -18,6 +18,19 @@ def index(request):
     data['categories'] = all_categories
     data['subcategories'] = all_subcategories
 
+    subcategories_lash = all_subcategories.filter(category__name='Lash')
+    subcategories_brow = all_subcategories.filter(category__name='Brow')
+    print(subcategories_lash)
+    print(subcategories_brow)
+
+    best_sale_lash = Product.objects.filter(subcategory__id__in=subcategories_lash, in_stock=True).order_by('-count_of_sold')
+    best_sale_brow = Product.objects.filter(subcategory__id__in=subcategories_brow, in_stock=True).order_by('-count_of_sold')
+    print(best_sale_lash)
+    print(best_sale_brow)
+
+    data['best_sale_lash'] = best_sale_lash
+    data['best_sale_brow'] = best_sale_brow
+
     return render(request, 'mainsite/index.html', context=data)
 
 
@@ -48,7 +61,6 @@ def filtered_sidebar(request):
     data = dict()
 
     filtered_subcategories = request.GET.getlist('sub')
-    print(filtered_subcategories)
     filtered_subcategories = list(map(int, filtered_subcategories))
 
     filtered_products = Product.objects.filter(subcategory__id__in=filtered_subcategories)
@@ -85,7 +97,7 @@ def details_product(request, slug):
         data = dict()
         product = Product.objects.get(slug=slug)
         data['product'] = product
-        return render(request, 'products/product-details-sticky-right.html', context=data)
+        return render(request, 'mainsite/product-details-sticky-right.html', context=data)
 
     except ObjectDoesNotExist:
         raise Http404

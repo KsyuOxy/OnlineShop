@@ -4,11 +4,13 @@ from subcategories.models import Subcategory
 from products.models import Product
 
 
-# gets the selected category; gets products of filtered subcategories
+# filtered by subcategories, price, color
 def category(request, category_id):
+    data = dict()
 
     # gets the selected category
-    data = dict()
+    category_sub = Category.objects.get(id=category_id)   # selected category
+    data['category_sub'] = category_sub
 
     all_products = Product.objects.all()
     all_categories = Category.objects.all()
@@ -18,8 +20,24 @@ def category(request, category_id):
     data['categories'] = all_categories
     data['subcategories'] = all_subcategories
 
-    category_sub = Category.objects.get(id=category_id)   # selected category
-    data['category_sub'] = category_sub
+    # Filter by Color  -----------------------------------------------------------------
+    color_categories = []
+
+    color_of_products = request.GET.getlist('color')
+    data['color_of_products'] = color_of_products
+    products_by_color = []
+
+    for product in all_products:
+        if product.color.lower() not in color_categories:
+            color_categories.append(product.color.lower())
+        if product.color.lower() in color_of_products:
+            products_by_color.append(product)
+
+    data['color_categories'] = color_categories
+    data['products_by_color'] = products_by_color
+
+    if color_of_products:
+        return render(request, 'categories/filter_products_by_color.html', context=data)
 
     # Filter by Subcategories ----------------------------------------------------------
     filtered_subcategories = request.GET.getlist('sub')    # gets filtered subcategories
@@ -71,7 +89,28 @@ def filter_product_params(request):
     return render(request, 'categories/filter_product_params.html', context=data)
 
 
+# Filter by Color  -----------------------------------------------------------------
+def filter_products_by_color(request):
+    data = dict()
 
+    color_of_products = request.GET.get('color')
+    data['color_of_products'] = color_of_products
+
+    all_products = Product.objects.all()
+    data['products'] = all_products
+
+    color_categories = []
+    products_by_color = dict()
+
+    for product in all_products:
+        if product.color.lower() not in color_categories:
+            color_categories.append(product.color.lower())
+            products_by_color.update({product.color: []})
+        products_by_color[f'{product.color}'].append(product)
+
+    data['color_categories'] = color_categories
+    data['products_by_color'] = products_by_color
+    return render(request, 'categories/filter_products_by_color.html', context=data)
 
 
 

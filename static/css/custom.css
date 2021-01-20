@@ -62,3 +62,28 @@
 .border-bottom-blue{
     border-bottom: 3px solid #2559A7;
 }
+
+.multicolor{
+    color: #AAFF00;
+}
+.sidebar__list li.multicolor i {
+    color: #AAFF00;
+}
+.brown{
+    color: #7C3800;
+}
+.sidebar__list li.brown i {
+    color: #7C3800;
+}
+.green{
+    color: green0;
+}
+.sidebar__list li.green i {
+    color: green;
+}
+.Violet{
+    color: DarkViolet;
+}
+.sidebar__list li.Violet i {
+    color: DarkViolet;
+}

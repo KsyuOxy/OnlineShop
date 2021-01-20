@@ -114,7 +114,7 @@
         </div>
     </div>
 </div>
-<!-- Start Our Product Area -->
+<!-- Start Our Product Area Lash-->
 <section class="htc__product__area bg__white">
     <div class="container">
         <div class="row">
@@ -169,13 +169,12 @@
                     </div>
                     <div class="tab-content another-product-style jump">
 
+                        <!--  Best Sale   -->
                         <div class="tab-pane active" id="home1">
                             <div class="row">
                                 <div class="product-slider-active owl-carousel">
 
-                                    {% for subcategory in subcategories %}{% if subcategory.category.name == 'Lash' %}
-                                    {% for product in products %}
-                                    {% if forloop.counter < 8 and product.subcategory == subcategory  and product.in_stock %}
+                                    {% for product in best_sale_lash %}
 
                                     <div class="col-md-4 single__pro col-lg-4 cat--1 col-sm-4 col-xs-12">
                                         <div class="product">
@@ -197,7 +196,7 @@
 
                                             </div>
                                             <div class="product__details">
-                                                <h2><a class="" href="#">{{product.name}} FORLOOP</a></h2>
+                                                <h2><a class="" href="#">{{product.name}}</a></h2>
                                                 {% if product.discount %}
                                                 <ul class="product__price">
                                                     <li class="old__price">{{product.price}}</li>
@@ -212,20 +211,21 @@
                                         </div>
                                     </div>
 
-                                    {% endif %}{% endfor %}
-                                    {% endif %}{% endfor %}
+                                    {% endfor %}
+
 
                                 </div>
                             </div>
                         </div>
 
+                        <!--  Discount   -->
                         <div class="tab-pane" id="home2">
                             <div class="row">
                                 <div class="product-slider-active owl-carousel">
 
                                     {% for subcategory in subcategories %}{% if subcategory.category.name == 'Lash' %}
                                     {% for product in products %}
-                                    {% if forloop.counter < 8 and product.subcategory == subcategory and product.discount and product.in_stock %}
+                                    {% if product.subcategory == subcategory and product.discount and product.in_stock %}
                                     <div class="col-md-4 single__pro col-lg-4 cat--1 col-sm-4 col-xs-12">
                                         <div class="product">
                                             <div class="product__inner">
@@ -258,13 +258,14 @@
                             </div>
                         </div>
 
+                        <!--  Latest   -->
                         <div class="tab-pane" id="home3">
                             <div class="row">
                                 <div class="product-slider-active owl-carousel">
 
                                     {% for subcategory in subcategories %}{% if subcategory.category.name == 'Lash' %}
                                     {% for product in products %}
-                                    {% if forloop.counter < 8 and product.subcategory == subcategory and product.in_stock %}
+                                    {% if product.subcategory == subcategory and product.in_stock %}
                                     <div class="col-md-4 single__pro col-lg-4 cat--1 col-sm-4 col-xs-12">
                                         <div class="product">
                                             <div class="product__inner">
@@ -358,11 +359,12 @@
 <div class="only-banner ptb--100 bg__white">
     <div class="container">
         <div class="only-banner-img">
-            <a href="#"><img src="{% static 'images/new-product/6.jpg' %}" alt="new product"></a>
+            <a href="#"><img src="{% static 'images/new-product/Banner_brow.png' %}" alt="new product"></a>
         </div>
     </div>
 </div>
-<!-- Start Our Product Area -->
+
+<!-- Start Our Product Area Brow-->
 <section class="htc__product__area bg__white">
     <div class="container">
         <div class="row">
@@ -417,13 +419,12 @@
                     </div>
                     <div class="tab-content another-product-style jump">
 
+                        <!--  Best Sale  Brow -->
                         <div class="tab-pane active" id="home5">
                             <div class="row">
                                 <div class="product-slider-active owl-carousel">
 
-                                    {% for subcategory in subcategories %}{% if subcategory.category.name == 'Brow' %}
-                                    {% for product in products %}
-                                    {% if forloop.counter < 8 and product.subcategory == subcategory  and product.in_stock %}
+                                    {% for product in best_sale_brow %}
 
                                     <div class="col-md-4 single__pro col-lg-4 cat--1 col-sm-4 col-xs-12">
                                         <div class="product">
@@ -445,7 +446,7 @@
 
                                             </div>
                                             <div class="product__details">
-                                                <h2><a class="" href="#">{{product.name}} FORLOOP</a></h2>
+                                                <h2><a class="" href="#">{{product.name}}</a></h2>
                                                 {% if product.discount %}
                                                 <ul class="product__price">
                                                     <li class="old__price">{{product.price}}</li>
@@ -460,8 +461,7 @@
                                         </div>
                                     </div>
 
-                                    {% endif %}{% endfor %}
-                                    {% endif %}{% endfor %}
+                                    {% endfor %}
 
                                 </div>
                             </div>
