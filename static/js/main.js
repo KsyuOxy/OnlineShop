@@ -719,6 +719,135 @@ $('.image-popup').magnificPopup({
         }
     });
 
+    // -----------------------------------------------------------
+    // Login
+
+    $('#log_btn').click(function () {
+        let _login = $('#login_field').val();
+        let _password = $('#password_field').val();
+        $.ajax({
+            url: '/ajax_log_passwd',
+            data: {password_field:_password, login_field:_login},
+            success: function(result){
+                if (result.message_user === 'ok'){
+                    $('.form-group').attr( 'onsubmit', 'return true');
+                    alert('Welcome!');
+                }else{
+                    alert('Error');
+                }
+            }
+        })
+    })
+    //----------------------------------------------------------------
+    // Register
+
+    let valid_login = false;
+    let valid_email = false;
+    let valid_passwd = false;
+    let valid_passwd_confirm = false;
+
+    let loginExp = /^[a-zA-Z0-9][a-zA-Z0-9_]{4,14}$/;
+    let regExp_email = /^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/;
+    let regExp_passwd = /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z*]{8,}/
+
+    //----------------------------------------------------------------
+    $('#login_field_reg').change(function () {
+        let _login = $(this).val()
+
+        if (!loginExp.test(_login)){
+            $('#login_error_reg').text('Длина должна быть 5-15 и состоять из букв и цифр')
+            valid_login = false;
+        }else{
+            $.ajax({
+                url: '/ajax_reg',
+                data: 'login_field=' + _login,
+                success: function(result){
+                    if (result.message_login === 'занят'){
+
+                        $('#login_error').text('Логин уже занят')
+                        valid_login = false;
+                    }else{
+
+                        $('#login_error').text('')
+                        valid_login = true;
+                    }
+                }
+            })
+        }
+    })
+    $('#login_field_reg').focus(function () {
+
+        $('#login_error').text('')
+    })
+    //----------------------------------------------------------------
+    $('#email_field_reg').blur(function () {
+        let _email = $(this).val()
+        if (regExp_email.test(_email)){
+
+            $('#email_error').text('')
+            valid_email = true;
+        }else{
+
+            $('#email_error').text('Не валидный email')
+            valid_email = false;
+        }
+    })
+    $('#email_field_reg').focus(function () {
+
+        $('#email_error').text('')
+    })
+
+    //----------------------------------------------------------------
+    $('#password_field_reg').blur(function () {
+        let _password = $(this).val()
+
+        if (regExp_passwd.test(_password)){
+
+            $('#password_error').text('')
+            valid_passwd = true;
+        }else{
+
+            $('#password_error').text('Должно быть не менее 8 символов, цифра, буква в верхнем и нижнем регистре')
+            valid_passwd = false;
+        }
+    })
+    $('#password_field_reg').focus(function () {
+
+        $('#password_error').text('')
+    })
+
+    //----------------------------------------------------------------
+    $('#password_confirmation_field').blur(function () {
+        let _password_confirm = $(this).val()
+
+        if (_password_confirm === $('#password_field_reg').val()){
+            $('#password_confirm_error').text('')
+            valid_passwd_confirm = true;
+        }else{
+
+            $('#password_confirm_error').text('Должен соответствовать паролю, введённому в предыдущем поле')
+            valid_passwd_confirm = false;
+        }
+    })
+    $('#password_confirmation_field').focus(function () {
+        $('#password_confirm_error').text('')
+    })
+
+    //----------------------------------------------------------------
+
+    $('#submit_reg').click(function () {
+        if (
+            valid_login === true &&
+            valid_email === true &&
+            valid_passwd === true &&
+            valid_passwd_confirm === true
+        ){
+            $('.form-group').attr( 'onsubmit', 'return true')
+        }
+    })
+    //----------------------------------------------------------------
+
+
 
 
 })(jQuery);

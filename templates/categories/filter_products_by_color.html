@@ -160,13 +160,19 @@
                         <div class="row">
                             <div class="shop__grid__view__wrap another-product-style">
                                 <h4 class="mt--30 mb--10" style="margin-left: 15px; color:#D3D3D3;">
-                                  Product by {{color_of_products}} color
+                                  {{ category_sub.name}} category / products by
+                                    {% for el in color_of_products %}{% if not forloop.last %} {{el}}, {% else %}
+                                    {{el}}
+                                    {% endif %}
+                                    {% endfor %}
+                                    color
                                 </h4>
 
                                 <!-- Start Single View -->
                                 <div role="tabpanel" id="grid-view" class="single-grid-view tab-pane fade in active clearfix">
 
-                                    {% for product in products_by_color %}{% if product.in_stock %}
+                                    {% for subcategory in subcategories %}{% if subcategory.category == category_sub %}
+                                    {% for product in products_by_color %}{% if product.in_stock and product.subcategory == subcategory %}
 
 
                                     <!-- Start Single Product -->
@@ -203,6 +209,7 @@
 
 
                                     {% endif %}{% endfor %}
+                                    {% endif %}{% endfor %}
 
 
                                 </div>
@@ -211,7 +218,8 @@
                                 <!-- Start Single View -->
                                 <div role="tabpanel" id="list-view" class="single-grid-view tab-pane fade clearfix">
 
-                                    {% for product in products_by_color %}{% if product.in_stock %}
+                                    {% for subcategory in subcategories %}{% if subcategory.category == category_sub %}
+                                    {% for product in products_by_color %}{% if product.in_stock and product.subcategory == subcategory %}
 
                                     <!-- Start List Content-->
                                     <div class="single__list__content clearfix border-bottom">
@@ -242,6 +250,7 @@
                                     </div>
                                     <!-- End List Content-->
 
+                                    {% endif %}{% endfor %}
                                     {% endif %}{% endfor %}
 
                                 </div>
